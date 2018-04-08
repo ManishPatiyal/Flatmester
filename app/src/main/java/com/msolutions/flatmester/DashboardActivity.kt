@@ -1,27 +1,38 @@
 package com.msolutions.flatmester
 
+import android.arch.lifecycle.Observer
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import com.msolutions.flatmester.database.Product
+import com.msolutions.flatmester.di.AppModule
+import com.msolutions.flatmester.di.DaggerFlatMesterComponent
+import com.msolutions.flatmester.di.FlatMesterComponent
+import com.msolutions.flatmester.di.RoomModule
+import com.msolutions.flatmester.repository.ProductRepository
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.app_bar_dashboard.*
+import javax.inject.Inject
+
+
+
 
 class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+
+    @Inject
+    lateinit var productRepository: ProductRepository
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
         setSupportActionBar(toolbar)
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -29,6 +40,17 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        DaggerFlatMesterComponent.builder()
+                .appModule(AppModule(application))
+                .roomModule(RoomModule(application))
+                .build()
+                .inject(this)
+
+
+        productRepository!!.findAll().observe(this, Observer<List<Product>> { products -> Toast.makeText(this@DashboardActivity, String.format("Product size: %s", products?.size), Toast.LENGTH_SHORT).show() })
+
+
     }
 
     override fun onBackPressed() {
