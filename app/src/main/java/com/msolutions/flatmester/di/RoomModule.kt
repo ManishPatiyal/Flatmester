@@ -5,7 +5,7 @@ import com.msolutions.flatmester.database.ProductDao
 import com.msolutions.flatmester.repository.ProductRepository
 import dagger.Provides
 import javax.inject.Singleton
-import com.msolutions.flatmester.database.DemoDatabase
+import com.msolutions.flatmester.repository.DemoDatabase
 import android.arch.persistence.room.Room
 import android.app.Application
 import dagger.Module

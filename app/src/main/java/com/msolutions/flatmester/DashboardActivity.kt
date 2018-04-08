@@ -48,7 +48,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 .inject(this)
 
 
-        productRepository!!.findAll().observe(this, Observer<List<Product>> { products -> Toast.makeText(this@DashboardActivity, String.format("Product size: %s", products?.size), Toast.LENGTH_SHORT).show() })
+        productRepository.findAll().observe(this, Observer<List<Product>> { products -> Toast.makeText(this@DashboardActivity, String.format("Product size: %s", products?.size), Toast.LENGTH_SHORT).show() })
 
 
     }

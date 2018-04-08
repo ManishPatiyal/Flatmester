@@ -3,7 +3,7 @@ package com.msolutions.flatmester.di
 import android.app.Application
 import com.msolutions.flatmester.DashboardActivity
 import com.msolutions.flatmester.repository.ProductRepository
-import com.msolutions.flatmester.database.DemoDatabase
+import com.msolutions.flatmester.repository.DemoDatabase
 import com.msolutions.flatmester.database.ProductDao
 import dagger.Component
 import javax.inject.Singleton

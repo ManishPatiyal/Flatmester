@@ -28,6 +28,6 @@ task clean(type: Delete) {
 ext {
     //android
     archLifecycleVersion = '1.1.1'
-    roomLifecycleVersion = '1.0.0-beta1'
+    roomLifecycleVersion = '1.0.0-beta2'
     daggerVersion = '2.14.1'
 }
