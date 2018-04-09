@@ -12,7 +12,6 @@ import android.widget.Toast
 import com.msolutions.flatmester.database.Product
 import com.msolutions.flatmester.di.AppModule
 import com.msolutions.flatmester.di.DaggerFlatMesterComponent
-import com.msolutions.flatmester.di.FlatMesterComponent
 import com.msolutions.flatmester.di.RoomModule
 import com.msolutions.flatmester.repository.ProductRepository
 import kotlinx.android.synthetic.main.activity_dashboard.*
@@ -20,13 +19,12 @@ import kotlinx.android.synthetic.main.app_bar_dashboard.*
 import javax.inject.Inject
 
 
-
-
 class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
 
     @Inject
     lateinit var productRepository: ProductRepository
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,8 +45,14 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 .build()
                 .inject(this)
 
+        var product = Product()
+        product.description = "Description"
+        product.title = "Title1"
 
-        productRepository.findAll().observe(this, Observer<List<Product>> { products -> Toast.makeText(this@DashboardActivity, String.format("Product size: %s", products?.size), Toast.LENGTH_SHORT).show() })
+        productRepository.insert(product)
+        productRepository.findAll().observe(this, Observer<List<Product>> {
+            products -> Toast.makeText(this@DashboardActivity, String.format("Product size: %s", products?.size), Toast.LENGTH_SHORT).show() })
+
 
 
     }

@@ -6,7 +6,7 @@ import com.msolutions.flatmester.database.Product
 import com.msolutions.flatmester.database.ProductDao
 
 
-@Database(entities = arrayOf(Product::class), version = DemoDatabase.VERSION)
+@Database(entities = [(Product::class)], version = DemoDatabase.VERSION)
 abstract class DemoDatabase : RoomDatabase() {
 
     abstract val productDao: ProductDao
